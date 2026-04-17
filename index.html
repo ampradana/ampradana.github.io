@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Andika Malraherawan Pradana – Odoo Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --bg2: #161b22;
+      --bg3: #1c2128;
+      --accent: #7ee787;
+      --accent2: #58a6ff;
+      --accent3: #f0883e;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --border: #30363d;
+      --card: #1c2128;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Sora', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(13,17,23,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--accent);
+    }
+
+    .nav-logo span { color: var(--muted); }
+
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+      transition: color .2s;
+    }
+
+    nav a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 6rem 2.5rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      background: rgba(126,231,135,0.08);
+      border: 1px solid rgba(126,231,135,0.2);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-name {
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-name .accent { color: var(--accent2); }
+
+    .hero-role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      color: var(--accent3);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-desc {
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all .2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0d1117;
+      font-weight: 700;
+      border: none;
+    }
+
+    .btn-primary:hover { background: #a8f0b0; transform: translateY(-2px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover { border-color: var(--accent2); color: var(--accent2); }
+
+    /* Terminal Card */
+    .hero-terminal {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+    }
+
+    .terminal-bar {
+      background: var(--bg3);
+      padding: 0.8rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #ffbd2e; }
+    .dot-g { background: #28c840; }
+
+    .terminal-title {
+      margin-left: 0.5rem;
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    .terminal-body { padding: 1.5rem; }
+
+    .t-line { margin-bottom: 0.6rem; line-height: 1.6; }
+    .t-prompt { color: var(--accent); }
+    .t-cmd { color: var(--text); }
+    .t-output { color: var(--muted); padding-left: 1rem; }
+    .t-key { color: var(--accent2); }
+    .t-val { color: var(--accent3); }
+    .cursor {
+      display: inline-block;
+      width: 8px; height: 14px;
+      background: var(--accent);
+      animation: blink 1s infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes blink { 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } }
+
+    /* ── SECTION COMMON ── */
+    section {
+      padding: 5rem 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.4rem;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .skill-card:hover {
+      border-color: var(--accent2);
+      transform: translateY(-3px);
+    }
+
+    .skill-icon { font-size: 1.5rem; margin-bottom: 0.6rem; }
+    .skill-name { font-weight: 600; margin-bottom: 0.3rem; }
+    .skill-desc { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── EXPERIENCE ── */
+    .timeline { position: relative; }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+    }
+
+    .timeline-item {
+      padding-left: 2rem;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -5px; top: 6px;
+      width: 12px; height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      border: 2px solid var(--bg);
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .tl-role {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+
+    .tl-period {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent3);
+      background: rgba(240,136,62,0.1);
+      border: 1px solid rgba(240,136,62,0.2);
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .tl-company {
+      color: var(--accent2);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .tl-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .tl-list li {
+      color: var(--muted);
+      font-size: 0.88rem;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .tl-list li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color .2s, transform .2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(to right, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity .2s;
+    }
+
+    .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .project-card:hover::before { opacity: 1; }
+
+    .project-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent2);
+      background: rgba(88,166,255,0.1);
+      border: 1px solid rgba(88,166,255,0.2);
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 0.8rem;
+    }
+
+    .project-title { font-weight: 700; margin-bottom: 0.5rem; }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .stack-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    /* ── PLACEHOLDER ── */
+    .wip-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent3);
+      background: rgba(240,136,62,0.08);
+      border: 1px dashed rgba(240,136,62,0.3);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      margin-top: 0.8rem;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .edu-icon {
+      width: 48px; height: 48px;
+      background: rgba(88,166,255,0.1);
+      border: 1px solid rgba(88,166,255,0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .edu-degree { font-weight: 700; font-size: 1.05rem; }
+    .edu-school { color: var(--accent2); margin-bottom: 0.3rem; }
+    .edu-thesis { font-size: 0.82rem; color: var(--muted); font-style: italic; }
+
+    /* ── CONTACT ── */
+    #contact {
+      padding: 5rem 2.5rem;
+    }
+
+    .contact-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.8rem 1.2rem;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.85rem;
+      transition: border-color .2s, color .2s;
+    }
+
+    .contact-item:hover { border-color: var(--accent); color: var(--accent); }
+    .contact-icon { font-size: 1.1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      nav ul { display: none; }
+      .section-title { font-size: 1.5rem; }
+    }
+
+    /* ── FADE IN ANIMATION ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn .6s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .delay-1 { animation-delay: .1s; }
+    .delay-2 { animation-delay: .2s; }
+    .delay-3 { animation-delay: .3s; }
+    .delay-4 { animation-delay: .4s; }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav>
+  <div class="nav-logo"><span>~/</span>andikamp</div>
+  <ul>
+    <li><a href="#about">about</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<div id="hero">
+  <div class="hero-inner">
+    <div class="fade-in delay-1">
+      <div class="hero-tag">🟢 Open to opportunities</div>
+      <h1 class="hero-name">
+        Andika<br/>
+        <span class="accent">Malraherawan</span><br/>
+        Pradana
+      </h1>
+      <div class="hero-role">$ ERP Odoo Developer & Implementor</div>
+      <p class="hero-desc">
+        Specializing in Odoo framework (v10–v17) for FMCG &amp; Supply Chain industries.
+        Building systems that streamline operations, from Distributor Management to POS retail solutions.
+      </p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-primary">▸ View Projects</a>
+        <a href="#contact" class="btn btn-secondary">📬 Get in Touch</a>
+        <a href="Andika_Malraherawan_Pradana__2_.pdf" download class="btn btn-secondary">⬇ Download CV</a>
+      </div>
+    </div>
+    <div class="fade-in delay-3">
+      <div class="hero-terminal">
+        <div class="terminal-bar">
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+          <span class="terminal-title">andika@portfolio ~ bash</span>
+        </div>
+        <div class="terminal-body">
+          <div class="t-line"><span class="t-prompt">$ </span><span class="t-cmd">whoami</span></div>
+          <div class="t-line t-output"><span class="t-key">name</span>: <span class="t-val">"Andika Malraherawan Pradana"</span></div>
+          <div class="t-line t-output"><span class="t-key">role</span>: <span class="t-val">"ERP Odoo Dev SPV"</span></div>
+          <div class="t-line t-output"><span class="t-key">company</span>: <span class="t-val">"PT Akasha Wira Int'l"</span></div>
+          <div class="t-line t-output"><span class="t-key">exp</span>: <span class="t-val">"5+ years"</span></div>
+          <br/>
+          <div class="t-line"><span class="t-prompt">$ </span><span class="t-cmd">odoo --version</span></div>
+          <div class="t-line t-output"><span class="t-val">Odoo v10 → v17 (Community)</span></div>
+          <br/>
+          <div class="t-line"><span class="t-prompt">$ </span><span class="t-cmd">git log --oneline</span></div>
+          <div class="t-line t-output"><span class="t-val">FMCG Dist. Management System</span></div>
+          <div class="t-line t-output"><span class="t-val">POS Restaurant – Olie's Project</span></div>
+          <div class="t-line t-output"><span class="t-val">Sampoerna Mitra AYO SRC API</span></div>
+          <div class="t-line t-output"><span class="t-val">v11→v14→v16 Migration</span></div>
+          <br/>
+          <div class="t-line"><span class="t-prompt">$ </span><span class="cursor"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="section-label">// about.py</div>
+  <h2 class="section-title">About Me</h2>
+  <p style="color:var(--muted); max-width:720px; line-height:1.9;">
+    I'm a dedicated <strong style="color:var(--text)">ERP Software Developer and Functional Analyst</strong> with deep expertise in the Odoo framework, 
+    specializing in the <strong style="color:var(--text)">FMCG industry and Supply Chain Distributor Management</strong>. 
+    I've worked across the full Odoo spectrum — from version 10 to 17 (Community) — delivering solutions in Sales, Inventory, 
+    HRIS, CRM, Purchase, Distributor Management, and POS systems for retail, restaurant, and event operations.
+  </p>
+  <br/>
+  <p style="color:var(--muted); max-width:720px; line-height:1.9;">
+    My work bridges technical development and business process analysis — I don't just write code, 
+    I help organizations rethink how their systems flow.
+  </p>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── SKILLS ── -->
+<section id="skills">
+  <div class="section-label">// skills.json</div>
+  <h2 class="section-title">Technical Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">🟣</div>
+      <div class="skill-name">Odoo Framework</div>
+      <div class="skill-desc">v10 – v17 Community. Modules: Sales, Inventory, CRM, POS, HRIS, Purchase</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🐍</div>
+      <div class="skill-name">Python</div>
+      <div class="skill-desc">Backend logic, custom addons, REST API, middleware development</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🗃️</div>
+      <div class="skill-name">SQL & PostgreSQL</div>
+      <div class="skill-desc">Database design, ETL pipelines, Data Warehouse integration</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🌐</div>
+      <div class="skill-name">HTML / XML / QWeb</div>
+      <div class="skill-desc">Odoo views, report templates, custom UI modifications</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🐧</div>
+      <div class="skill-name">Linux Server</div>
+      <div class="skill-desc">Ubuntu, Debian — server setup, maintenance, deployment</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">☁️</div>
+      <div class="skill-name">Cloud (AWS & GCP)</div>
+      <div class="skill-desc">Web service hosting, scalable cloud deployment</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🐳</div>
+      <div class="skill-name">Docker & GitHub</div>
+      <div class="skill-desc">Containerization, version control, CI/CD workflows</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📋</div>
+      <div class="skill-name">Project Management</div>
+      <div class="skill-desc">Agile & Scrum methodology, team lead, client handling</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── EXPERIENCE ── -->
+<section id="experience">
+  <div class="section-label">// experience.log</div>
+  <h2 class="section-title">Work Experience</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <div class="tl-role">Technical &amp; Functional Odoo Developer SPV</div>
+        <div class="tl-period">Mar 2021 – Present</div>
+      </div>
+      <div class="tl-company">PT Akasha Wira International, Tbk.</div>
+      <ul class="tl-list">
+        <li>Development on Odoo 11 framework — Sales, Inventory, Purchase, CRM, SFA Reporting &amp; Middleware</li>
+        <li>Manage &amp; maintain Odoo for fieldforce and Distributor Management System</li>
+        <li>Integration with Microsoft AX ERP and ETL Data Warehouse pipelines</li>
+        <li>Internal Android app integration &amp; REST API development for fieldforce</li>
+        <li>Full migration: Odoo v11 → v14 → v16</li>
+        <li>REST API integration for Sampoerna (Mitra AYO SRC)</li>
+        <li>Olie's Restaurant — Lead POS &amp; ERP implementation with ESB, kitchen/bar/warehouse systems</li>
+      </ul>
+      <div class="wip-badge">⭐ <em>Add specific metrics &amp; impact numbers here (e.g. "Reduced manual entry by 60%")</em></div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <div class="tl-role">Odoo Developer &amp; Project Leader</div>
+        <div class="tl-period">Apr 2019 – 2021</div>
+      </div>
+      <div class="tl-company">PT Fujicon Priangan Perdana</div>
+      <ul class="tl-list">
+        <li>Odoo customization &amp; addon development (v10, v12, v13, v14)</li>
+        <li>Lead technical &amp; functional Odoo implementation across projects</li>
+        <li>Business &amp; system process analysis, design system architecture</li>
+        <li>Agile &amp; Scrum project management, team coordination</li>
+        <li>QA, bug fixing, UAT, software testing</li>
+        <li>Devops — server setup &amp; web service management</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <div class="tl-role">IT Support – Outsourcing</div>
+        <div class="tl-period">Feb – Jun 2018</div>
+      </div>
+      <div class="tl-company">Rektorat Telkom University</div>
+      <ul class="tl-list">
+        <li>Campus accreditation support &amp; document preparation</li>
+        <li>Database creation &amp; management</li>
+        <li>Internet network infrastructure setup</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── PROJECTS ── -->
+<section id="projects">
+  <div class="section-label">// projects/</div>
+  <h2 class="section-title">Key Projects</h2>
+  <p style="color:var(--muted); margin-bottom:2rem; font-size:0.9rem;">
+    🔧 <em>Kerangka project cards — kembangkan setiap card dengan detail, screenshot, dan dampak bisnis</em>
+  </p>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-tag">FMCG · Distributor</div>
+      <div class="project-title">Distributor Management System</div>
+      <div class="project-desc">
+        End-to-end DMS for FMCG fieldforce at PT Akasha Wira International. 
+        Covers route planning, SFA reporting, CRM, and middleware integration with Microsoft AX.
+        <div class="wip-badge">📝 Tambahkan: scope, jumlah user, dampak bisnis</div>
+      </div>
+      <div class="project-stack">
+        <span class="stack-pill">Odoo v11/v14/v16</span>
+        <span class="stack-pill">Python</span>
+        <span class="stack-pill">REST API</span>
+        <span class="stack-pill">Microsoft AX</span>
+        <span class="stack-pill">ETL</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">Retail · Restaurant · POS</div>
+      <div class="project-title">Olie's Restaurant POS & ERP</div>
+      <div class="project-desc">
+        Lead POS &amp; ERP implementation with ESB software. 
+        Integrated kitchen display, bar, warehouse management &amp; central kitchen operations.
+        <div class="wip-badge">📝 Tambahkan: teknologi ESB, hasil implementasi</div>
+      </div>
+      <div class="project-stack">
+        <span class="stack-pill">Odoo POS</span>
+        <span class="stack-pill">ESB</span>
+        <span class="stack-pill">Python</span>
+        <span class="stack-pill">XML/QWeb</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">API Integration · FMCG</div>
+      <div class="project-title">Sampoerna Mitra AYO SRC</div>
+      <div class="project-desc">
+        REST API integration between Odoo and Sampoerna's Mitra AYO SRC platform. 
+        Built middleware layer for seamless data exchange.
+        <div class="wip-badge">📝 Tambahkan: volume transaksi, endpoint coverage</div>
+      </div>
+      <div class="project-stack">
+        <span class="stack-pill">REST API</span>
+        <span class="stack-pill">Middleware</span>
+        <span class="stack-pill">Python</span>
+        <span class="stack-pill">Odoo</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">Migration · DevOps</div>
+      <div class="project-title">Odoo v11 → v14 → v16 Migration</div>
+      <div class="project-desc">
+        Full migration of all custom modules across major Odoo versions. 
+        Includes data migration, module refactoring, and regression testing.
+        <div class="wip-badge">📝 Tambahkan: jumlah modul, durasi project, risiko mitigated</div>
+      </div>
+      <div class="project-stack">
+        <span class="stack-pill">Odoo v11/v14/v16</span>
+        <span class="stack-pill">PostgreSQL</span>
+        <span class="stack-pill">Docker</span>
+        <span class="stack-pill">Linux</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-tag">Research · SDN</div>
+      <div class="project-title">SDN Load Balancing via ANN</div>
+      <div class="project-desc">
+        Thesis research: "Load Balancing Analysis on Software Defined Networks using Artificial Neural Network Methods."
+        Published on arpnjournals.org — received grade A.
+      </div>
+      <div class="project-stack">
+        <span class="stack-pill">SDN</span>
+        <span class="stack-pill">ANN</span>
+        <span class="stack-pill">Python</span>
+        <span class="stack-pill">Research</span>
+      </div>
+    </div>
+
+    <!-- Placeholder for next project -->
+    <div class="project-card" style="border-style:dashed; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:180px; text-align:center;">
+      <div style="font-size:2rem; margin-bottom:0.5rem;">➕</div>
+      <div style="color:var(--muted); font-size:0.85rem;">Project besar berikutnya<br/>akan ditambahkan di sini</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── EDUCATION ── -->
+<section id="education">
+  <div class="section-label">// education.md</div>
+  <h2 class="section-title">Education</h2>
+  <div class="edu-card">
+    <div class="edu-icon">🎓</div>
+    <div>
+      <div class="edu-degree">Bachelor of Computer Engineering (B.E)</div>
+      <div class="edu-school">Telkom University</div>
+      <div class="edu-thesis">
+        Thesis: "Load Balancing Analysis on Software Defined Networks (SDN) using Artificial Neural Network (ANN) Methods" — Grade: A
+        <br/><a href="https://arpnjournals.org/andikamp-journals" style="color:var(--accent2);">📄 arpnjournals.org/andikamp-journals</a>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+    <div class="skill-card" style="max-width:260px;">
+      <div class="skill-icon">🏆</div>
+      <div class="skill-name">1st Place Scientific Writing</div>
+      <div class="skill-desc">MTQ Telkom University</div>
+    </div>
+    <div class="skill-card" style="max-width:260px;">
+      <div class="skill-icon">📜</div>
+      <div class="skill-name">Odoo Technical Training</div>
+      <div class="skill-desc">By Akhmad Daniel Sembiring – Udemy</div>
+    </div>
+    <div class="skill-card" style="max-width:260px;">
+      <div class="skill-icon">📜</div>
+      <div class="skill-name">InformIT Training Course</div>
+      <div class="skill-desc">By Informit Training Center</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label">// contact.sh</div>
+    <h2 class="section-title">Get In Touch</h2>
+    <p style="color:var(--muted); max-width:520px;">
+      Open to new projects, collaborations, or just a technical discussion about Odoo &amp; ERP systems.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:andikamalraherawanpradana@gmail.com" class="contact-item">
+        <span class="contact-icon">✉️</span> andikamalraherawanpradana@gmail.com
+      </a>
+      <a href="https://linkedin.com/in/andikamp" target="_blank" class="contact-item">
+        <span class="contact-icon">💼</span> linkedin.com/in/andikamp
+      </a>
+      <a href="https://github.com/ampradana" target="_blank" class="contact-item">
+        <span class="contact-icon">🐙</span> github.com/ampradana
+      </a>
+      <a href="tel:082227539417" class="contact-item">
+        <span class="contact-icon">📱</span> 0822-2753-9417
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Built with ♥ by Andika Malraherawan Pradana &nbsp;·&nbsp; 
+     <a href="https://github.com/ampradana" style="color:var(--accent2); text-decoration:none;">ampradana.github.io</a>
+  </p>
+</footer>
+
+<script>
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.style.opacity = '1';
+        el.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.skill-card, .timeline-item, .project-card, .edu-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
