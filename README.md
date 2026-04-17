@@ -1,4 +1,4 @@
-# 👋 andikamp.github.io — Portfolio Website
+# 👋 Dika — Portfolio Website
 
 > Personal portfolio of **Andika Malraherawan Pradana** — ERP Odoo Developer & Implementor Supervisor
 
