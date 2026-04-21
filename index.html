@@ -17,6 +17,33 @@
       --muted: #8b949e;
       --border: #30363d;
       --card: #1c2128;
+      --nav-bg: rgba(13,17,23,0.88);
+      --accent-tint: rgba(126,231,135,0.08);
+      --accent-tint-border: rgba(126,231,135,0.2);
+      --accent2-tint: rgba(88,166,255,0.1);
+      --accent2-tint-border: rgba(88,166,255,0.2);
+      --accent3-tint: rgba(240,136,62,0.1);
+      --accent3-tint-border: rgba(240,136,62,0.2);
+    }
+
+    html[data-theme="light"] {
+      --bg: #f6f8fa;
+      --bg2: #ffffff;
+      --bg3: #eaeef2;
+      --accent: #1a7f37;
+      --accent2: #0969da;
+      --accent3: #bc4c00;
+      --text: #1f2328;
+      --muted: #57606a;
+      --border: #d0d7de;
+      --card: #ffffff;
+      --nav-bg: rgba(246,248,250,0.92);
+      --accent-tint: rgba(26,127,55,0.08);
+      --accent-tint-border: rgba(26,127,55,0.2);
+      --accent2-tint: rgba(9,105,218,0.08);
+      --accent2-tint-border: rgba(9,105,218,0.2);
+      --accent3-tint: rgba(188,76,0,0.08);
+      --accent3-tint-border: rgba(188,76,0,0.2);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -45,7 +72,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 1rem 2.5rem;
-      background: rgba(13,17,23,0.85);
+      background: var(--nav-bg);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
@@ -97,8 +124,8 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.8rem;
       color: var(--accent);
-      background: rgba(126,231,135,0.08);
-      border: 1px solid rgba(126,231,135,0.2);
+      background: var(--accent-tint);
+      border: 1px solid var(--accent-tint-border);
       padding: 0.3rem 0.8rem;
       border-radius: 20px;
       display: inline-block;
@@ -326,8 +353,8 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.75rem;
       color: var(--accent3);
-      background: rgba(240,136,62,0.1);
-      border: 1px solid rgba(240,136,62,0.2);
+      background: var(--accent3-tint);
+      border: 1px solid var(--accent3-tint-border);
       padding: 0.2rem 0.6rem;
       border-radius: 20px;
       white-space: nowrap;
@@ -394,8 +421,8 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.7rem;
       color: var(--accent2);
-      background: rgba(88,166,255,0.1);
-      border: 1px solid rgba(88,166,255,0.2);
+      background: var(--accent2-tint);
+      border: 1px solid var(--accent2-tint-border);
       padding: 0.2rem 0.6rem;
       border-radius: 20px;
       display: inline-block;
@@ -426,8 +453,8 @@
     .meta-item {
       font-size: 0.75rem;
       color: var(--accent);
-      background: rgba(126,231,135,0.07);
-      border: 1px solid rgba(126,231,135,0.15);
+      background: var(--accent-tint);
+      border: 1px solid var(--accent-tint-border);
       padding: 0.25rem 0.6rem;
       border-radius: 20px;
     }
@@ -453,8 +480,8 @@
     .impact-pill {
       font-size: 0.78rem;
       color: var(--accent);
-      background: rgba(126,231,135,0.07);
-      border: 1px solid rgba(126,231,135,0.2);
+      background: var(--accent-tint);
+      border: 1px solid var(--accent-tint-border);
       padding: 0.3rem 0.8rem;
       border-radius: 20px;
     }
@@ -466,8 +493,8 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.75rem;
       color: var(--accent3);
-      background: rgba(240,136,62,0.08);
-      border: 1px dashed rgba(240,136,62,0.3);
+      background: var(--accent3-tint);
+      border: 1px dashed var(--accent3-tint-border);
       padding: 0.5rem 1rem;
       border-radius: 8px;
       margin-top: 0.8rem;
@@ -487,8 +514,8 @@
 
     .edu-icon {
       width: 48px; height: 48px;
-      background: rgba(88,166,255,0.1);
-      border: 1px solid rgba(88,166,255,0.2);
+      background: var(--accent2-tint);
+      border: 1px solid var(--accent2-tint-border);
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -566,6 +593,35 @@
     .delay-2 { animation-delay: .2s; }
     .delay-3 { animation-delay: .3s; }
     .delay-4 { animation-delay: .4s; }
+
+    /* ── THEME TOGGLE ── */
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 0.35rem 0.65rem;
+      line-height: 1;
+      transition: border-color .2s, color .2s, background .2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent2);
+      color: var(--accent2);
+    }
+
+    /* smooth theme transition */
+    html { transition: background .25s, color .25s; }
+    body, nav, .skill-card, .project-card, .timeline-item, .edu-card, .contact-item {
+      transition: background .25s, border-color .25s, color .25s;
+    }
   </style>
 </head>
 <body>
@@ -580,6 +636,9 @@
     <li><a href="#projects">projects</a></li>
     <li><a href="#contact">contact</a></li>
   </ul>
+  <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+    <span id="themeIcon">☀️</span><span id="themeLabel">light</span>
+  </button>
 </nav>
 
 <!-- ── HERO ── -->
@@ -792,7 +851,7 @@
 
     <div class="project-card">
       <div class="project-tag">FMCG · Distributor</div>
-      <div class="project-title">Distributor Management System</div>
+      <div class="project-title">Distributor Management System — ARO</div>
       <div class="project-desc">
         End-to-end DMS for fieldforce operations at PT Akasha Wira International Tbk — a major FMCG company in Indonesia.
         Covers route planning, beat scheduling, SFA mobile reporting, CRM, inventory visibility,
@@ -1031,7 +1090,33 @@
 </footer>
 
 <script>
-  // Intersection Observer for scroll animations
+  // ── THEME TOGGLE ──
+  const html = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  const icon = document.getElementById('themeIcon');
+
+  function applyTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    const label = btn.querySelector('span#themeLabel');
+    if (theme === 'light') {
+      icon.textContent = '🌙';
+      if (label) label.textContent = 'dark';
+    } else {
+      icon.textContent = '☀️';
+      if (label) label.textContent = 'light';
+    }
+  }
+
+  const saved = localStorage.getItem('theme') || 'dark';
+  applyTheme(saved);
+
+  btn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+  });
+
+  // ── SCROLL ANIMATIONS ──
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(el => {
       if (el.isIntersecting) {
