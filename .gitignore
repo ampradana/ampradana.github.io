@@ -24,3 +24,6 @@ yarn-error.log*
 
 # local backup of the old single-file site (kept out of git; history has it too)
 legacy/
+
+# throwaway image experiments
+previews/

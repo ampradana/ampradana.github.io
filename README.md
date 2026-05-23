@@ -48,7 +48,10 @@ ampradana.github.io/
 │   ├── components/             # Nav, Hero, About, Skills, Experience,
 │   │                           #   Projects, Clients, Education, Contact, Footer
 │   ├── styles/global.css       # design tokens + primitives
-│   └── pages/index.astro       # page assembly
+│   └── pages/
+│       ├── index.astro         # portfolio page assembly
+│       └── cv.astro            # ATS résumé page (/cv) → printed to the PDF
+├── scripts/build-cv-pdf.sh     # regenerate public/cv_andika.pdf from /cv
 └── .github/workflows/deploy.yml  # build + deploy to Pages
 ```
 
@@ -80,8 +83,26 @@ After that, any push to `main` builds the Astro site and publishes it to
 
 ### To update content
 - Text/projects/skills/experience → edit [`src/data/site.ts`](src/data/site.ts)
-- CV → replace `public/cv_andika.pdf` (keep the filename)
 - Commit & push → live in ~1–2 minutes after the Action finishes.
+
+---
+
+## 📄 ATS Résumé
+
+The CV is generated from the **same data** as the site, so it never goes stale:
+
+- Web version (recruiter-viewable): **`/cv`** ([`src/pages/cv.astro`](src/pages/cv.astro)) — single
+  column, plain text, standard headings, no photo/icons/tables → ATS-parseable.
+- PDF (downloadable as `cv_andika.pdf`): a **text-based** print of `/cv` (selectable text, A4, 2 pages).
+
+**Regenerate the PDF after changing CV content in `src/data/site.ts`:**
+
+```bash
+npm run cv:pdf      # builds /cv and prints it to public/cv_andika.pdf (needs Chrome/Chromium locally)
+```
+
+Then commit `public/cv_andika.pdf`. The deploy workflow does **not** regenerate it — it just serves the
+committed file, so no headless-browser dependency is needed in CI.
 
 ---
 

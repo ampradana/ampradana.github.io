@@ -1,0 +1,225 @@
+---
+import {
+  profile,
+  social,
+  cvSummary,
+  cvSkills,
+  experience,
+  education,
+  certifications,
+  languages,
+  organizations,
+} from '../data/site';
+
+// ATS résumé — single column, plain text, standard headings, no photo/icons/tables.
+// Rendered to a text-based PDF (public/cv_andika.pdf) via headless Chrome. See README.
+const awards = certifications.filter((c) => c.icon === '🏆');
+const training = certifications.filter((c) => c.icon !== '🏆');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{profile.name} — Résumé (ERP Odoo Developer)</title>
+    <meta name="description" content={cvSummary} />
+    <meta name="robots" content="index, follow" />
+  </head>
+  <body>
+    <!-- screen-only toolbar; hidden in print/PDF -->
+    <div class="toolbar">
+      <a class="tb-btn" href={profile.cv} download>⬇ Download PDF</a>
+      <button class="tb-btn" onclick="window.print()">🖨 Print</button>
+      <a class="tb-btn" href="/">← Back to portfolio</a>
+    </div>
+
+    <main class="sheet">
+      <header>
+        <h1>{profile.name}</h1>
+        <p class="title">ERP Odoo Developer &amp; Implementor Supervisor</p>
+        <p class="contact">
+          <a href={`mailto:${social.email}`}>{social.email}</a> ·
+          <span>{social.phone}</span> ·
+          <a href={social.linkedin}>linkedin.com/in/{social.linkedinHandle}</a> ·
+          <a href={social.github}>github.com/{social.githubHandle}</a> ·
+          <a href={`https://${social.website}`}>{social.website}</a> ·
+          <span>{profile.location}</span>
+        </p>
+      </header>
+
+      <section>
+        <h2>Professional Summary</h2>
+        <p>{cvSummary}</p>
+      </section>
+
+      <section>
+        <h2>Core Skills</h2>
+        <ul class="skills">
+          {cvSkills.map((g) => (
+            <li><strong>{g.group}:</strong> {g.items.join(', ')}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section>
+        <h2>Work Experience</h2>
+        {experience.map((job) => (
+          <div class="job">
+            <div class="job-head">
+              <span class="role">{job.role}</span>
+              <span class="period">{job.period}</span>
+            </div>
+            <p class="company">{job.company}</p>
+            <ul>
+              {job.points.map((p) => <li>{p}</li>)}
+            </ul>
+            {job.impact.length > 0 && (
+              <p class="results"><strong>Key results:</strong> {job.impact.join('; ')}.</p>
+            )}
+          </div>
+        ))}
+      </section>
+
+      <section>
+        <h2>Education</h2>
+        <div class="job">
+          <div class="job-head">
+            <span class="role">{education.degree}</span>
+          </div>
+          <p class="company">{education.school}</p>
+          <ul>
+            <li>Thesis: “{education.thesis}”</li>
+            <li>Publication: {education.thesisLinkLabel}</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>Certifications &amp; Training</h2>
+        <ul>
+          {training.map((c) => <li>{c.name} — {c.org}</li>)}
+        </ul>
+      </section>
+
+      {awards.length > 0 && (
+        <section>
+          <h2>Honors &amp; Awards</h2>
+          <ul>
+            {awards.map((a) => <li>{a.name} — {a.org}</li>)}
+          </ul>
+        </section>
+      )}
+
+      <section>
+        <h2>Organizational Experience</h2>
+        <ul>
+          {organizations.map((o) => <li>{o.role} — {o.org} ({o.year})</li>)}
+        </ul>
+      </section>
+
+      <section>
+        <h2>Languages</h2>
+        <ul>
+          {languages.map((l) => <li>{l.name} — {l.level}</li>)}
+        </ul>
+      </section>
+    </main>
+
+    <style is:global>
+      :root { color-scheme: light; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        background: #e9eaee;
+        color: #1a1a1a;
+        font-family: Arial, 'Helvetica Neue', Helvetica, 'Segoe UI', sans-serif;
+        font-size: 11pt;
+        line-height: 1.45;
+        padding: 24px 12px;
+      }
+
+      .toolbar {
+        max-width: 210mm;
+        margin: 0 auto 16px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .tb-btn {
+        font: inherit;
+        font-size: 0.85rem;
+        padding: 8px 14px;
+        border-radius: 8px;
+        border: 1px solid #c3c6cf;
+        background: #fff;
+        color: #1a1a1a;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .tb-btn:hover { border-color: #4f5bd5; color: #4f5bd5; }
+
+      .sheet {
+        max-width: 210mm;
+        margin: 0 auto;
+        background: #fff;
+        padding: 16mm 18mm;
+        box-shadow: 0 2px 18px rgba(0, 0, 0, 0.12);
+      }
+
+      header { margin-bottom: 14px; }
+      h1 {
+        font-size: 22pt;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        color: #1a1f4d;
+      }
+      .title { font-size: 12pt; font-weight: 600; color: #4f5bd5; margin-top: 2px; }
+      .contact {
+        font-size: 9.5pt;
+        color: #333;
+        margin-top: 7px;
+        line-height: 1.6;
+      }
+      .contact a { color: #1a1f4d; text-decoration: none; }
+
+      h2 {
+        font-size: 11.5pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #1a1f4d;
+        border-bottom: 1.5px solid #1a1f4d;
+        padding-bottom: 3px;
+        margin: 16px 0 8px;
+      }
+
+      p { margin-bottom: 4px; }
+      ul { margin: 4px 0 6px 18px; }
+      li { margin-bottom: 3px; }
+      .skills { list-style: none; margin-left: 0; }
+      .skills li { margin-bottom: 4px; }
+
+      .job { margin-bottom: 12px; }
+      .job-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+      }
+      .role { font-weight: 700; font-size: 11pt; }
+      .period { font-size: 9.5pt; color: #555; white-space: nowrap; }
+      .company { font-weight: 600; color: #4f5bd5; font-size: 10.5pt; margin-bottom: 4px; }
+      .results { font-size: 10pt; margin-top: 4px; }
+
+      @media print {
+        @page { size: A4; margin: 12mm 14mm; }
+        body { background: #fff; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .toolbar { display: none; }
+        .sheet { box-shadow: none; max-width: none; margin: 0; padding: 0; }
+        h2 { break-after: avoid; }
+        .job, li { break-inside: avoid; }
+      }
+    </style>
+  </body>
+</html>

@@ -9,6 +9,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "cv:pdf": "bash scripts/build-cv-pdf.sh",
     "astro": "astro"
   },
   "dependencies": {

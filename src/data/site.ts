@@ -21,14 +21,42 @@ export const profile = {
 
 export const social = {
   email: 'andikamalraherawanpradana@gmail.com',
+  phone: '+62 822-2753-9417',
   linkedin: 'https://linkedin.com/in/andikamp',
   linkedinHandle: 'andikamp',
   github: 'https://github.com/ampradana',
   githubHandle: 'ampradana',
+  website: 'ampradana.github.io',
   whatsapp:
     'https://api.whatsapp.com/send/?phone=6282227539417&text&type=phone_number&app_absent=0',
   whatsappLabel: '0822-2753-9417',
 };
+
+// ── CV-specific content (used by the ATS résumé page /cv) ──────
+
+// Plain professional summary for the résumé header (ATS reads this first).
+export const cvSummary =
+  'ERP Odoo Developer and Functional Analyst with 5+ years of experience across Odoo v10–v18 (Community), focused on the FMCG and Supply Chain industry. Proven track record delivering end-to-end solutions — custom module development, REST API and middleware integration, ERP migrations, and POS systems — that streamline operations, cut manual work, and drive measurable business results.';
+
+// Skills grouped for a clean, parseable résumé list.
+export const cvSkills: { group: string; items: string[] }[] = [
+  { group: 'ERP & Frameworks', items: ['Odoo Framework (v10–v18, Community)', 'OWL', 'QWeb'] },
+  { group: 'Programming', items: ['Python', 'JavaScript', 'SQL', 'HTML', 'XML'] },
+  { group: 'Databases & Data', items: ['PostgreSQL', 'ETL pipelines', 'Data Warehouse integration'] },
+  { group: 'Integration', items: ['REST API', 'Middleware development', 'Microsoft AX', 'JSON/OAuth'] },
+  { group: 'Infrastructure & DevOps', items: ['Linux Server (Ubuntu/Debian)', 'Docker', 'Git/GitHub', 'CI/CD', 'On-premise & cloud (AWS, GCP)'] },
+  { group: 'Practices', items: ['Agile & Scrum', 'Business analysis', 'UAT', 'Project management', 'Team leadership'] },
+];
+
+export const languages = [
+  { name: 'Indonesian', level: 'Native' },
+  { name: 'English', level: 'Professional (EPrT score: 480)' },
+];
+
+export const organizations = [
+  { role: 'Vice Chairman', org: 'Himpunan Mahasiswa Teknik Komputer (HMTK), Telkom University', year: '2017' },
+  { role: 'Minister of Strategic Action Studies', org: 'Badan Eksekutif Mahasiswa (BEM), Telkom University', year: '2018' },
+];
 
 export const about: string[] = [
   "Hi, I'm Andika 👋 I started my journey as an Odoo Developer, focusing on the technical side — building custom modules, integrating APIs, handling deployments, and keeping servers running smoothly. Along the way I grew into the functional side too, working closely with users, analyzing business processes, and leading ERP implementations end-to-end.",
