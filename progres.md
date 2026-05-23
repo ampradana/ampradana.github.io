@@ -34,6 +34,47 @@ Setiap push ke `main` otomatis build & deploy.
 
 ---
 
+## 🆕 Update 2026-05-23 (sesi 3) — Custom domain ampradana.my.id
+
+Sisi repo/kode SUDAH dikerjakan:
+- `public/CNAME` = `ampradana.my.id` (ikut ter-copy ke `dist/` saat build → domain tidak hilang tiap deploy).
+- `astro.config.mjs` `site` → `https://ampradana.my.id` (canonical/OG ikut berubah, diverifikasi).
+- `src/data/site.ts` `social.website` → `ampradana.my.id`; Footer & Base fallback ikut diupdate.
+
+### Yang HARUS dilakukan user (di luar repo):
+
+**1. DNS di registrar `.my.id`** — tambahkan untuk apex `ampradana.my.id`:
+
+| Type | Host/Name | Value |
+|---|---|---|
+| A | @ | 185.199.108.153 |
+| A | @ | 185.199.109.153 |
+| A | @ | 185.199.110.153 |
+| A | @ | 185.199.111.153 |
+| AAAA | @ | 2606:50c0:8000::153 |
+| AAAA | @ | 2606:50c0:8001::153 |
+| AAAA | @ | 2606:50c0:8002::153 |
+| AAAA | @ | 2606:50c0:8003::153 |
+
+(Opsional, supaya `www.ampradana.my.id` ikut jalan & redirect:
+`CNAME  www  →  ampradana.github.io`.)
+
+**2. GitHub** — Settings → Pages → Custom domain → isi `ampradana.my.id` → Save.
+Tunggu DNS check hijau, lalu centang **Enforce HTTPS** (sertifikat Let's Encrypt auto, bisa
+beberapa menit s/d ~24 jam).
+
+### ⚠️ URUTAN PENTING (hindari downtime)
+Set **DNS dulu** (langkah 1) → tunggu propagasi → baru set Custom domain di GitHub / push commit
+yang berisi CNAME. Kalau custom domain diaktifkan sebelum DNS resolve, `ampradana.github.io` akan
+redirect ke `ampradana.my.id` yang belum nyambung → situs seolah down sementara.
+
+(Opsional keamanan: verifikasi domain di level akun via TXT `_github-pages-challenge-ampradana`
+untuk cegah domain takeover — Settings → Pages → "Add a domain".)
+
+Cek propagasi: `dig +short ampradana.my.id` harus mengembalikan ke-4 IP `185.199.108–111.153`.
+
+---
+
 ## 🧱 Tech stack baru
 
 - **Astro 5.x** — output statis murni (zero JS by default), deploy ke GitHub Pages via GitHub Actions.

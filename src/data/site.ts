@@ -26,7 +26,7 @@ export const social = {
   linkedinHandle: 'andikamp',
   github: 'https://github.com/ampradana',
   githubHandle: 'ampradana',
-  website: 'ampradana.github.io',
+  website: 'ampradana.my.id',
   whatsapp:
     'https://api.whatsapp.com/send/?phone=6282227539417&text&type=phone_number&app_absent=0',
   whatsappLabel: '0822-2753-9417',

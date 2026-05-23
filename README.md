@@ -2,7 +2,7 @@
 
 > Personal portfolio of **Andika Malraherawan Pradana** — ERP Odoo Developer & Implementor Supervisor
 
-[![Live Site](https://img.shields.io/badge/🌐_Live_Site-ampradana.github.io-7c8cff?style=for-the-badge)](https://ampradana.github.io)
+[![Live Site](https://img.shields.io/badge/🌐_Live_Site-ampradana.my.id-7c8cff?style=for-the-badge)](https://ampradana.my.id)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-andikamp-0A66C2?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/andikamp)
 [![GitHub](https://img.shields.io/badge/GitHub-ampradana-181717?style=for-the-badge&logo=github)](https://github.com/ampradana)
 
@@ -27,7 +27,7 @@ education, and contact.
 | Icons | [Simple Icons](https://simpleicons.org) CDN + inline SVG |
 | Fonts | Google Fonts — Sora |
 | Hosting | GitHub Pages (GitHub Actions deploy) |
-| Domain | `ampradana.github.io` |
+| Domain | `ampradana.my.id` (custom) → GitHub Pages `ampradana.github.io` |
 
 Astro ships **no JavaScript by default**, so the page loads as fast as plain HTML while staying
 component-based and easy to maintain.
@@ -79,7 +79,11 @@ This repo deploys automatically on every push to `main` via GitHub Actions.
 2. Under **Build and deployment → Source**, select **GitHub Actions**
 
 After that, any push to `main` builds the Astro site and publishes it to
-<https://ampradana.github.io> automatically (see [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)).
+<https://ampradana.my.id> automatically (see [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)).
+
+> **Custom domain:** set by [`public/CNAME`](public/CNAME) (copied into the build) + repo
+> Settings → Pages → Custom domain. DNS at the registrar points the apex `ampradana.my.id`
+> to GitHub Pages' A/AAAA records. See `progres.md` for the exact records.
 
 ### To update content
 - Text/projects/skills/experience → edit [`src/data/site.ts`](src/data/site.ts)
