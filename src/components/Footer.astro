@@ -1,0 +1,29 @@
+---
+import { profile, social } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container inner">
+    <p>© {year} {profile.name}</p>
+    <p class="built">
+      Built with <a href="https://astro.build" target="_blank" rel="noopener">Astro</a> ·
+      <a href={social.github} target="_blank" rel="noopener">ampradana.github.io</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer { border-top: 1px solid var(--border); padding-block: 2rem; }
+  .inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .built a { color: var(--accent); text-decoration: none; }
+  .built a:hover { text-decoration: underline; }
+</style>

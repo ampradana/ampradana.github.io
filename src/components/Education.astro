@@ -1,0 +1,56 @@
+---
+import { education, certifications } from '../data/site';
+---
+
+<section id="education" class="section">
+  <div class="container">
+    <p class="eyebrow">Education</p>
+    <h2 class="section-title">Background & credentials</h2>
+
+    <div class="edu card reveal">
+      <span class="cap">🎓</span>
+      <div>
+        <h3>{education.degree}</h3>
+        <p class="school">{education.school}</p>
+        <p class="thesis">
+          Thesis: “{education.thesis}”
+          <br />
+          <a href={education.thesisLink} target="_blank" rel="noopener">📄 {education.thesisLinkLabel}</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="certs">
+      {certifications.map((c) => (
+        <div class="cert card reveal">
+          <span class="icon">{c.icon}</span>
+          <div>
+            <span class="name">{c.name}</span>
+            <span class="org">{c.org}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .edu { display: flex; gap: 1.1rem; padding: 1.6rem; align-items: flex-start; }
+  .cap { font-size: 1.8rem; line-height: 1; }
+  .edu h3 { font-size: 1.1rem; font-weight: 600; }
+  .school { color: var(--accent); font-size: 0.92rem; margin: 0.15rem 0 0.6rem; }
+  .thesis { color: var(--muted); font-size: 0.9rem; }
+  .thesis a { color: var(--accent-2); text-decoration: none; }
+  .thesis a:hover { text-decoration: underline; }
+
+  .certs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .cert { display: flex; gap: 0.8rem; align-items: center; padding: 1rem 1.2rem; }
+  .cert .icon { font-size: 1.4rem; }
+  .cert .name { display: block; font-weight: 600; font-size: 0.9rem; }
+  .cert .org { display: block; color: var(--muted); font-size: 0.8rem; }
+</style>

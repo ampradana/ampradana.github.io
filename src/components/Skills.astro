@@ -1,0 +1,60 @@
+---
+import { skills } from '../data/site';
+---
+
+<section id="skills" class="section">
+  <div class="container">
+    <p class="eyebrow">Skills</p>
+    <h2 class="section-title">Technical toolkit</h2>
+
+    <div class="grid">
+      {skills.map((s) => (
+        <div class="card skill reveal">
+          <div class="logo">
+            <img
+              src={`https://cdn.simpleicons.org/${s.icon}/${s.color}`}
+              alt={`${s.name} logo`}
+              width="26"
+              height="26"
+              loading="lazy"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='grid';"
+            />
+            <span class="fallback" aria-hidden="true">{s.name.charAt(0)}</span>
+          </div>
+          <h3>{s.name}</h3>
+          <p>{s.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1rem;
+  }
+  .skill { padding: 1.3rem; }
+  .logo {
+    width: 46px;
+    height: 46px;
+    border-radius: 11px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    display: grid;
+    place-items: center;
+    margin-bottom: 0.9rem;
+  }
+  .logo img { width: 26px; height: 26px; }
+  .fallback {
+    display: none;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .skill h3 { font-size: 0.98rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .skill p { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+</style>

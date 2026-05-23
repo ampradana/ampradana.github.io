@@ -1,0 +1,63 @@
+---
+import { clients } from '../data/site';
+
+const monogram = (name: string) =>
+  name
+    .replace(/[^A-Za-z ]/g, '')
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join('')
+    .toUpperCase();
+---
+
+<section id="clients" class="section">
+  <div class="container">
+    <p class="eyebrow" style="text-align:center">Clients & Collaborations</p>
+    <h2 class="section-title" style="text-align:center">Organizations I've built for</h2>
+
+    <div class="grid reveal">
+      {clients.map((c) => (
+        <div class="client card">
+          <span class="mono">{monogram(c.name)}</span>
+          <div class="meta">
+            <span class="name">{c.name}</span>
+            <span class="sector">{c.sector}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+  .client {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1rem 1.2rem;
+  }
+  .mono {
+    flex: 0 0 auto;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--accent);
+    background: var(--accent-tint);
+    border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+    letter-spacing: -0.02em;
+  }
+  .meta { display: flex; flex-direction: column; min-width: 0; }
+  .name { font-weight: 600; font-size: 0.95rem; }
+  .sector { font-size: 0.78rem; color: var(--muted); }
+</style>

@@ -1,0 +1,92 @@
+---
+import { experience } from '../data/site';
+---
+
+<section id="experience" class="section">
+  <div class="container">
+    <p class="eyebrow">Experience</p>
+    <h2 class="section-title">Where I've made an impact</h2>
+
+    <div class="timeline">
+      {experience.map((job) => (
+        <article class="item reveal">
+          <span class="node" aria-hidden="true"></span>
+          <div class="head">
+            <h3>{job.role}</h3>
+            <span class="period">{job.period}</span>
+          </div>
+          <p class="company">{job.company}</p>
+          <ul class="points">
+            {job.points.map((p) => <li>{p}</li>)}
+          </ul>
+          {job.impact.length > 0 && (
+            <div class="impact">
+              {job.impact.map((i) => <span class="pill">{i}</span>)}
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .timeline { position: relative; padding-left: 1.75rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 5px; top: 6px; bottom: 6px;
+    width: 2px;
+    background: linear-gradient(var(--accent), var(--accent-2), transparent);
+  }
+  .item { position: relative; padding-bottom: 2.75rem; }
+  .item:last-child { padding-bottom: 0; }
+  .node {
+    position: absolute;
+    left: -1.75rem; top: 6px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--bg);
+  }
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .head h3 { font-size: 1.08rem; font-weight: 600; }
+  .period {
+    font-size: 0.78rem;
+    color: var(--muted);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .company { color: var(--accent); font-size: 0.9rem; margin: 0.2rem 0 0.9rem; }
+  .points { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .points li {
+    position: relative;
+    padding-left: 1.2rem;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+  .points li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+  .impact { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.1rem; }
+  .pill {
+    font-size: 0.78rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    background: var(--accent-tint);
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    color: var(--text);
+  }
+</style>

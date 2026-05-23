@@ -1,8 +1,8 @@
-# 👋 Dika — Portfolio Website
+# 👋 Andika — Portfolio Website
 
 > Personal portfolio of **Andika Malraherawan Pradana** — ERP Odoo Developer & Implementor Supervisor
 
-[![Live Site](https://img.shields.io/badge/🌐_Live_Site-ampradana.github.io-7ee787?style=for-the-badge)](https://ampradana.github.io)
+[![Live Site](https://img.shields.io/badge/🌐_Live_Site-ampradana.github.io-7c8cff?style=for-the-badge)](https://ampradana.github.io)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-andikamp-0A66C2?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/andikamp)
 [![GitHub](https://img.shields.io/badge/GitHub-ampradana-181717?style=for-the-badge&logo=github)](https://github.com/ampradana)
 
@@ -10,14 +10,10 @@
 
 ## 🧑‍💻 About
 
-This is the source code for my personal portfolio website, built as a static site and hosted via **GitHub Pages** — free, fast, and version-controlled.
-
-The site showcases my professional background as an **ERP Odoo Developer** with 5+ years of experience in the **FMCG & Supply Chain** industry, covering:
-
-- Work experience & key projects
-- Technical skills (Odoo, Python, SQL, Linux, Docker, AWS/GCP, and more)
-- Education & certifications
-- Contact information
+Source code for my personal portfolio — a fast, minimalist static site built with **Astro** and
+deployed to **GitHub Pages** via GitHub Actions. It showcases my work as an **ERP Odoo Developer**
+with 5+ years in the **FMCG & Supply Chain** industry: work experience, key projects, skills,
+education, and contact.
 
 ---
 
@@ -25,14 +21,16 @@ The site showcases my professional background as an **ERP Odoo Developer** with 
 
 | Layer | Technology |
 |---|---|
-| Markup | HTML5 |
-| Styling | CSS3 (custom properties, flexbox, grid) |
-| Scripting | Vanilla JavaScript (IntersectionObserver API) |
-| Fonts | Google Fonts — JetBrains Mono + Sora |
-| Hosting | GitHub Pages |
-| Domain | `ampradana.github.io` (free) |
+| Framework | [Astro](https://astro.build) (static output, zero JS by default) |
+| Styling | CSS custom properties (dark/light theme), scoped component styles |
+| Content | Single data file — [`src/data/site.ts`](src/data/site.ts) |
+| Icons | [Simple Icons](https://simpleicons.org) CDN + inline SVG |
+| Fonts | Google Fonts — Sora |
+| Hosting | GitHub Pages (GitHub Actions deploy) |
+| Domain | `ampradana.github.io` |
 
-No frameworks. No build tools. No dependencies. Just clean, fast HTML — the way a backend dev would do it. 🐍
+Astro ships **no JavaScript by default**, so the page loads as fast as plain HTML while staying
+component-based and easy to maintain.
 
 ---
 
@@ -40,30 +38,50 @@ No frameworks. No build tools. No dependencies. Just clean, fast HTML — the wa
 
 ```
 ampradana.github.io/
-│
-├── index.html          # Main portfolio page (single-file, self-contained)
-├── cv_andika.pdf       # Downloadable CV — update this file when CV changes
-└── README.md           # You are here
+├── astro.config.mjs            # Astro config (site URL)
+├── public/                     # Static assets served at root
+│   ├── andika.jpg              #   profile photo
+│   └── cv_andika.pdf           #   downloadable CV (replace to update)
+├── src/
+│   ├── data/site.ts            # ← ALL content lives here (edit this)
+│   ├── layouts/Base.astro      # <head>, SEO/Open Graph, theme, fonts
+│   ├── components/             # Nav, Hero, About, Skills, Experience,
+│   │                           #   Projects, Clients, Education, Contact, Footer
+│   ├── styles/global.css       # design tokens + primitives
+│   └── pages/index.astro       # page assembly
+└── .github/workflows/deploy.yml  # build + deploy to Pages
 ```
 
 ---
 
-## 🚀 Deployment
+## 🚀 Local Development
 
-This site is deployed automatically via **GitHub Pages**.
+Requires **Node.js 18+** (this machine has Node 20 via nvm).
 
-Any commit pushed to the `main` branch is live within seconds at:
+```bash
+npm install      # install dependencies
+npm run dev      # local dev server → http://localhost:4321
+npm run build    # production build → ./dist
+npm run preview  # preview the production build
 ```
-https://ampradana.github.io
-```
 
-### To update the CV:
-1. Replace `cv_andika.pdf` with the new version (keep the same filename)
-2. Commit & push → done. No code changes needed.
+---
 
-### To update content:
-1. Edit `index.html` directly
-2. Commit & push → live immediately
+## 🌐 Deployment (one-time setup)
+
+This repo deploys automatically on every push to `main` via GitHub Actions.
+
+**Before the first deploy, switch the Pages source to Actions:**
+1. GitHub → repo **Settings → Pages**
+2. Under **Build and deployment → Source**, select **GitHub Actions**
+
+After that, any push to `main` builds the Astro site and publishes it to
+<https://ampradana.github.io> automatically (see [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)).
+
+### To update content
+- Text/projects/skills/experience → edit [`src/data/site.ts`](src/data/site.ts)
+- CV → replace `public/cv_andika.pdf` (keep the filename)
+- Commit & push → live in ~1–2 minutes after the Action finishes.
 
 ---
 
@@ -72,7 +90,7 @@ https://ampradana.github.io
 | Channel | Info |
 |---|---|
 | 📧 Email | andikamalraherawanpradana@gmail.com |
-| 📱 Phone | 0822-2753-9417 |
+| 📱 WhatsApp | 0822-2753-9417 |
 | 💼 LinkedIn | [linkedin.com/in/andikamp](https://linkedin.com/in/andikamp) |
 | 🐙 GitHub | [github.com/ampradana](https://github.com/ampradana) |
 | 📍 Location | South Jakarta, DKI Jakarta, Indonesia |
@@ -81,9 +99,5 @@ https://ampradana.github.io
 
 ## 📄 License
 
-This portfolio and its content are © 2025 Andika Malraherawan Pradana. All rights reserved.
-The source code structure may be used as a reference, but please do not clone the design as-is for your own portfolio.
-
----
-
-<p align="center">Built with ♥ and <code>vim</code> — no npm install required.</p>
+© 2025 Andika Malraherawan Pradana. All rights reserved.
+The structure may be used as a reference; please don't clone the design as-is.

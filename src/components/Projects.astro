@@ -1,0 +1,69 @@
+---
+import { projects } from '../data/site';
+---
+
+<section id="projects" class="section">
+  <div class="container">
+    <p class="eyebrow">Projects</p>
+    <h2 class="section-title">Selected work</h2>
+    <p class="lead">Implementations spanning ERP, POS, middleware, and field operations — each delivered from design through production.</p>
+
+    <div class="grid">
+      {projects.map((p) => (
+        <article class="card project reveal">
+          <span class="tag">{p.tag}</span>
+          <h3>{p.title}</h3>
+          <p class="desc">{p.desc}</p>
+          {p.meta.length > 0 && (
+            <ul class="meta">
+              {p.meta.map((m) => <li>{m}</li>)}
+            </ul>
+          )}
+          <div class="stack">
+            {p.stack.map((s) => <span class="chip">{s}</span>)}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .lead { color: var(--muted); margin-top: -1.8rem; margin-bottom: 2.2rem; max-width: 620px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 1.2rem;
+  }
+  .project { padding: 1.6rem; display: flex; flex-direction: column; }
+  .tag {
+    align-self: flex-start;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-tint);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    margin-bottom: 0.9rem;
+  }
+  .project h3 { font-size: 1.12rem; font-weight: 600; line-height: 1.3; margin-bottom: 0.6rem; }
+  .desc { color: var(--muted); font-size: 0.9rem; line-height: 1.65; }
+  .meta {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin: 1rem 0;
+  }
+  .meta li {
+    position: relative;
+    padding-left: 1.1rem;
+    font-size: 0.82rem;
+    color: var(--text);
+  }
+  .meta li::before { content: '✦'; position: absolute; left: 0; color: var(--accent-2); font-size: 0.7rem; top: 2px; }
+  .stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: auto; padding-top: 0.6rem; }
+</style>
