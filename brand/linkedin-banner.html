@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- LinkedIn personal cover: 1584 x 396 (4:1). Keep key content on the RIGHT —
+         the profile avatar overlaps the bottom-left of the banner.
+
+         REGENERATE (note: --headless=new under-renders height, so render taller then crop):
+           google-chrome --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+             --window-size=1584,560 --virtual-time-budget=5000 \
+             --screenshot="$PWD/brand/_raw.png" "file://$PWD/brand/linkedin-banner.html"
+           convert brand/_raw.png -crop 1584x396+0+0 +repage brand/linkedin-banner.png && rm brand/_raw.png
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1584px; height: 396px; overflow: hidden; background: #090b11; }
+      .banner {
+        width: 1584px;
+        height: 396px;
+        position: relative;
+        overflow: hidden;
+        font-family: 'Sora', sans-serif;
+        color: #fff;
+        background:
+          radial-gradient(1100px 760px at 76% 52%, rgba(124,140,255,0.5), transparent 62%),
+          linear-gradient(90deg, #0a0c14 0%, #161a40 26%, #2c328c 56%, #5159d6 100%);
+      }
+
+      /* faint dot grid texture */
+      .banner::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1.4px, transparent 1.4px);
+        background-size: 26px 26px;
+        mask-image: linear-gradient(115deg, transparent 30%, #000 100%);
+        -webkit-mask-image: linear-gradient(115deg, transparent 30%, #000 100%);
+      }
+      /* diagonal accent slab on the left, echoing the reference's angled cut */
+      .banner::after {
+        content: '';
+        position: absolute;
+        top: 0; bottom: 0; left: -240px;
+        width: 520px;
+        background: linear-gradient(180deg, rgba(124, 140, 255, 0.12), rgba(124, 140, 255, 0.02));
+        transform: skewX(-14deg);
+        border-right: 2px solid rgba(124, 140, 255, 0.35);
+      }
+
+      /* top-left wordmark (above the avatar zone) */
+      .logo {
+        position: absolute;
+        top: 34px; left: 60px;
+        font-size: 30px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        z-index: 3;
+      }
+      .logo .dot { color: #8b97ff; }
+
+      /* main content block, right side */
+      .content {
+        position: absolute;
+        bottom: 30px;
+        right: 84px;
+        width: 920px;
+        padding-left: 36px;
+        border-left: 4px solid #8b97ff;
+        z-index: 3;
+      }
+      .eyebrow {
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: #b9c0ff;
+        margin-bottom: 16px;
+      }
+      .headline {
+        font-size: 50px;
+        font-weight: 800;
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+        margin-bottom: 20px;
+      }
+      .headline .accent { color: #aeb6ff; }
+      .keywords {
+        font-size: 19px;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.75);
+        margin-bottom: 26px;
+      }
+      .url {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 29px;
+        font-weight: 700;
+        line-height: 1;
+        padding: 14px 32px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1.5px solid rgba(174, 182, 255, 0.7);
+        backdrop-filter: blur(4px);
+      }
+      .url svg { width: 28px; height: 28px; }
+    </style>
+  </head>
+  <body>
+    <div class="banner">
+      <div class="logo">Andika<span class="dot">.</span></div>
+
+      <div class="content">
+        <div class="eyebrow">ERP Odoo Developer &amp; Implementor</div>
+        <div class="headline">Let's build ERP that<br /><span class="accent">actually works.</span></div>
+        <div class="keywords">Odoo v10–v18 &nbsp;·&nbsp; Python &nbsp;·&nbsp; FMCG &amp; Supply Chain &nbsp;·&nbsp; POS &amp; Middleware</div>
+        <span class="url">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#aeb6ff" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
+          ampradana.my.id
+        </span>
+      </div>
+    </div>
+  </body>
+</html>
