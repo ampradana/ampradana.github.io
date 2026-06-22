@@ -27,3 +27,7 @@ legacy/
 
 # throwaway image experiments
 previews/
+
+# Obsidian local UI state (the notes themselves DO get committed)
+vault/.obsidian/
+vault/.trash/
