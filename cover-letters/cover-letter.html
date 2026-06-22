@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cover Letter — Andika Malraherawan Pradana</title>
+    <!--
+      ATS-friendly cover letter (single column, plain text, no headers/footers,
+      contact info in body, standard fonts). One page, ~370 words.
+
+      EDIT FOR NEXT APPLICATION:
+        - Update the date, recipient block, greeting, and the four <p class="body"> paragraphs.
+        - Keep one page (250-400 words is the sweet spot).
+        - Keep keywords from the JD natural in the first 100 words.
+
+      REGENERATE THE PDF:
+        npm run cover:pdf
+        # (or:  bash scripts/build-cover-letter-pdf.sh)
+    -->
+    <style>
+      :root { color-scheme: light; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        background: #ffffff;
+        color: #111111;
+        font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+        font-size: 10.5pt;
+        line-height: 1.4;
+      }
+
+      .sheet { max-width: 210mm; margin: 0 auto; padding: 18mm 20mm; }
+
+      /* Sender (in the body — ATS-friendly, NOT in a page header) */
+      h1 {
+        font-size: 18pt;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        color: #1a1f4d;
+      }
+      .contact {
+        font-size: 9.5pt;
+        color: #333;
+        margin-top: 3px;
+        line-height: 1.45;
+      }
+      .contact a { color: #1a1f4d; text-decoration: none; }
+
+      hr {
+        border: 0;
+        border-top: 1px solid #d0d0d0;
+        margin: 10pt 0;
+      }
+
+      .date { margin-bottom: 10pt; }
+
+      .recipient { margin-bottom: 12pt; }
+      .recipient .name { font-weight: 700; }
+
+      .greet { margin-bottom: 10pt; }
+      p.body { margin-bottom: 9pt; text-align: left; }
+      p.body strong { color: #111; }
+
+      .signoff { margin-top: 10pt; }
+      .signature { margin-top: 22pt; font-weight: 700; }
+
+      @media print {
+        @page { size: A4; margin: 0; }
+        body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .sheet { max-width: none; margin: 0; padding: 18mm 20mm; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="sheet">
+      <!-- ───── Sender block (kept in body for ATS parsing) ───── -->
+      <h1>Andika Malraherawan Pradana</h1>
+      <p class="contact">
+        <a href="mailto:andikamalraherawanpradana@gmail.com">andikamalraherawanpradana@gmail.com</a> ·
+        +62 822-2753-9417 ·
+        <a href="https://linkedin.com/in/andikamp">linkedin.com/in/andikamp</a> ·
+        <a href="https://github.com/ampradana">github.com/ampradana</a> ·
+        <a href="https://ampradana.my.id">ampradana.my.id</a> ·
+        South Jakarta, DKI Jakarta, Indonesia
+      </p>
+
+      <hr />
+
+      <p class="date">22 June 2026</p>
+
+      <div class="recipient">
+        <div class="name">Ms. Allychia Nanalingdita Thea Putri</div>
+        <div>PT Sayap Mas Utama (WINGS Group)</div>
+        <div>Jakarta, Indonesia</div>
+      </div>
+
+      <p class="greet">Dear Ms. Allychia Nanalingdita Thea Putri,</p>
+
+      <!-- ───── Body — 4 paragraphs, ~370 words ───── -->
+      <p class="body">
+        I am writing to express my strong interest in the <strong>Odoo Developer Supervisor</strong>
+        position at PT Sayap Mas Utama (WINGS Group). With over five years leading Odoo ERP
+        development across the FMCG and supply-chain industry — currently as Technical &amp; Functional
+        Odoo Developer Supervisor at PT Akasha Wira International, Tbk. — I am excited about the
+        opportunity to bring proven delivery, technical depth, and team leadership to one of
+        Indonesia's most respected consumer goods groups.
+      </p>
+
+      <p class="body">
+        My experience spans Odoo Community versions 10 through 18, covering Sales, Inventory,
+        Purchase, CRM, HRIS, Manufacturing, and POS. At Akasha Wira I lead the Odoo platform behind
+        our Distributor Management System (DMS) and Sales Force Automation operations, integrated
+        with Microsoft AX ERP, ETL data-warehouse pipelines, and an internal Android SFA application.
+        The system today serves <strong>500+ fieldforce users across 200+ active distributor
+        routes</strong>, cut manual reporting by <strong>70%</strong>, reduced order-processing
+        cycle time from approximately four hours to under thirty minutes, and lowered stockout
+        incidents by roughly 40% through automated reorder alerts. I have also delivered three
+        major Odoo version migrations (v11 → v14 → v16) with zero data loss.
+      </p>
+
+      <p class="body">
+        Beyond core development, I have grown into a <strong>functional analyst</strong> and
+        <strong>team-lead</strong> role — leading mixed technical and functional Odoo implementations
+        end-to-end, managing UAT, and translating operational pain points into systems the business
+        actually uses. Selected projects include Olie's Restaurant — a greenfield POS &amp; ERP rollout
+        with central-kitchen production, multi-warehouse delivery, and KDS-integrated outlet POS — and
+        the Sampoerna Mitra AYO SRC REST API integration. I am comfortable bridging conversations
+        between sales operations, supply chain, finance, and engineering, and turning those
+        conversations into deliverable scope.
+      </p>
+
+      <p class="body">
+        WINGS Group's scale across FMCG categories is exactly the environment where the Distributor
+        Management, manufacturing, and POS patterns I have built can be extended into a wider,
+        multi-brand ERP backbone. I would welcome the opportunity to discuss how my Odoo expertise,
+        FMCG track record, and supervisor experience can support your team's roadmap. My portfolio
+        is available at <a href="https://ampradana.my.id">ampradana.my.id</a>, and I am reachable at
+        andikamalraherawanpradana@gmail.com or +62 822-2753-9417. Thank you for your consideration.
+      </p>
+
+      <p class="signoff">Sincerely,</p>
+      <p class="signature">Andika Malraherawan Pradana</p>
+    </main>
+  </body>
+</html>

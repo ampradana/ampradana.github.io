@@ -87,4 +87,22 @@ Commit: `153e43f`.
 - Added `vault/.obsidian/` and `vault/.trash/` to `.gitignore` (so notes are
   committed, but per-machine UI state isn't).
 
+Commit: `80c0a6b`.
+
+## 2026-06-22 (Mon) — Cover letter pipeline + first application (WINGS)
+
+- Researched 2026 ATS cover letter best practices (Resumeway, WhatIsACoverLetter,
+  MS Word, Enhancv) and codified them in [[Cover Letter Workflow]].
+- Built a reusable cover letter pipeline that mirrors the CV pipeline but stays
+  **outside the deployed site** (private, job-specific):
+  `cover-letters/cover-letter.html` → `scripts/build-cover-letter-pdf.sh`
+  → `cover-letters/cover_letter.pdf`, plus `npm run cover:pdf`.
+- Wrote first cover letter targeting **PT Sayap Mas Utama (WINGS Group)** for
+  the **Odoo Developer Supervisor** role (hiring manager: Ms. Allychia
+  Nanalingdita Thea Putri). One page, ~370 words, Arial 10.5pt, single column,
+  contact info in body (ATS-safe). Verified via `pdftotext` reading order.
+- Narrative: FMCG-to-FMCG transition (Akasha Wira → WINGS), Odoo v10–v18
+  depth, quantified DMS impact (500+ users, ~70% reporting ↓, ~40% stockout ↓),
+  team-lead + functional-analyst angle.
+
 Commit: *(this commit)*.

@@ -33,6 +33,7 @@ on this project without re-discovering anything.
 | See what's installed and why | [[Tech Stack]] · [[Repo Structure]] · [[Environment Setup]] |
 | Edit the website content | [[Content Workflow]] |
 | Update the résumé | [[CV (ATS) Workflow]] |
+| Write a cover letter for a new application | [[Cover Letter Workflow]] |
 | Re-render the LinkedIn banner | [[LinkedIn Banner]] |
 | Swap the profile photo | [[Profile Photo]] |
 | Touch DNS / the custom domain | [[Custom Domain]] |

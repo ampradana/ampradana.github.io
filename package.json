@@ -10,6 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "cv:pdf": "bash scripts/build-cv-pdf.sh",
+    "cover:pdf": "bash scripts/build-cover-letter-pdf.sh",
     "astro": "astro"
   },
   "dependencies": {
