@@ -14,13 +14,44 @@ should never be public.
 
 | Path | What |
 |---|---|
-| `cover-letters/cover-letter.html` | Source template + content (edit this per application) |
+| `cover-letters/cover-letter.template.html` | **Evergreen template** — never edit per application; copy from it |
+| `cover-letters/cover-letter.html` | Current active draft (per application) — edit this |
 | `cover-letters/cover_letter.pdf` | Rendered PDF — upload this to the application portal |
-| `scripts/build-cover-letter-pdf.sh` | Render script (Chrome `--print-to-pdf`) |
-| `npm run cover:pdf` | Convenience wrapper |
+| `cover-letters/archive/` | (optional) historical letters you want to keep around |
+| `scripts/new-cover-letter.sh` | Starts a new draft from the template (safely refuses to overwrite) |
+| `scripts/build-cover-letter-pdf.sh` | Render `cover-letter.html` → `cover_letter.pdf` via Chrome |
+| `npm run cover:new` | Convenience: copy template → new active draft |
+| `npm run cover:pdf` | Convenience: render the active draft to PDF |
 
 > Folder `cover-letters/` is **NOT** in `public/` or `src/pages/` — it is
 > committed for archive but never deployed to ampradana.my.id.
+
+## The 3-command flow per new application
+
+```bash
+# 0. (optional) archive the previous letter first if you want to keep it
+mkdir -p cover-letters/archive
+mv cover-letters/cover-letter.html  cover-letters/archive/$(date +%F)-<company>-<role>.html
+mv cover-letters/cover_letter.pdf   cover-letters/archive/$(date +%F)-<company>-<role>.pdf
+
+# 1. start a new draft from the template
+npm run cover:new           # → creates cover-letters/cover-letter.html
+
+# 2. edit cover-letters/cover-letter.html
+#    Replace the 7 [BRACKETED] placeholders. The header, para 2, para 3, and
+#    sign-off are EVERGREEN — leave them alone. Re-target only:
+#      - [DATE]
+#      - recipient block (3 lines)
+#      - greeting
+#      - para 1: [ROLE_TITLE] + [COMPANY_NAME]
+#      - para 4: [COMPANY_NAME] (×2) + [WHY_THIS_COMPANY_ONE_SENTENCE]
+
+# 3. render the PDF
+export PATH="$HOME/.nvm/versions/node/v20.20.2/bin:$PATH"
+npm run cover:pdf           # → cover-letters/cover_letter.pdf
+```
+
+Then upload `cover-letters/cover_letter.pdf` to the portal.
 
 ## Format / ATS principles applied
 
@@ -34,27 +65,16 @@ Enhancv, CVOwl):
 - Standard sections in linear reading order: sender → date → recipient → greeting → 4 body paragraphs → sign-off.
 - 8–12 keywords from the job description in the first 100 words; aim for 65–75% match rate; avoid spammy repetition (>5×).
 
-## Editing for a NEW application — checklist
+## Verification (after `cover:pdf`)
 
-1. Open `cover-letters/cover-letter.html`.
-2. Update:
-   - **Date** (`<p class="date">`)
-   - **Recipient block** (`.recipient` — name, company, location)
-   - **Greeting** (`Dear [Name],`)
-   - **All four `<p class="body">` paragraphs** — re-target to the role/company/JD
-3. Regenerate:
-   ```bash
-   export PATH="$HOME/.nvm/versions/node/v20.20.2/bin:$PATH"
-   npm run cover:pdf
-   ```
-4. Verify 1 page & key wording with:
-   ```bash
-   pdfinfo cover-letters/cover_letter.pdf | grep Pages          # → 1
-   pdftotext cover-letters/cover_letter.pdf - | wc -w           # → 250–400
-   pdftotext cover-letters/cover_letter.pdf - | head -8         # ATS reading order
-   ```
-5. Commit both `cover-letter.html` and `cover_letter.pdf` for archive (git history = letter history).
-6. Upload `cover-letters/cover_letter.pdf` to the application portal.
+```bash
+pdfinfo cover-letters/cover_letter.pdf | grep Pages          # → 1
+pdftotext cover-letters/cover_letter.pdf - | wc -w           # → 250-400
+pdftotext cover-letters/cover_letter.pdf - | head -8         # ATS reading order check
+```
+
+Commit both `cover-letter.html` and `cover_letter.pdf` so the git history doubles
+as your application archive.
 
 ## Writing structure (the 4-paragraph pattern that works)
 

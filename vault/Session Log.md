@@ -105,4 +105,19 @@ Commit: `80c0a6b`.
   depth, quantified DMS impact (500+ users, ~70% reporting ↓, ~40% stockout ↓),
   team-lead + functional-analyst angle.
 
+Commit: `50d486f`.
+
+## 2026-06-23 (Tue) — Evergreen cover-letter template
+
+- Added `cover-letters/cover-letter.template.html` — an evergreen template with
+  the sender block, paras 2 + 3, and sign-off all kept verbatim, and clearly
+  marked `[BRACKETED]` placeholders only at the 7 spots that change per
+  application (date, recipient ×3 lines, greeting, role, company, "why this
+  company"). Self-documenting via a comment block at the top.
+- Added `scripts/new-cover-letter.sh` + `npm run cover:new` — copies the template
+  to `cover-letter.html` for a fresh draft, with a **safety guard** that refuses
+  to overwrite a draft already in progress (so the active WINGS letter wasn't lost).
+- Updated [[Cover Letter Workflow]] with the new 3-command flow:
+  `cover:new` → edit placeholders → `cover:pdf` → upload.
+
 Commit: *(this commit)*.

@@ -11,6 +11,7 @@
     "preview": "astro preview",
     "cv:pdf": "bash scripts/build-cv-pdf.sh",
     "cover:pdf": "bash scripts/build-cover-letter-pdf.sh",
+    "cover:new": "bash scripts/new-cover-letter.sh",
     "astro": "astro"
   },
   "dependencies": {
