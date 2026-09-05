@@ -43,7 +43,7 @@ export const cvSkills: { group: string; items: string[] }[] = [
   { group: 'ERP & Frameworks', items: ['Odoo Framework (v10–v18, Community)', 'OWL', 'QWeb'] },
   { group: 'Programming', items: ['Python', 'JavaScript', 'SQL', 'HTML', 'XML'] },
   { group: 'Databases & Data', items: ['PostgreSQL', 'ETL pipelines', 'Data Warehouse integration'] },
-  { group: 'Integration', items: ['REST API', 'Middleware development', 'Microsoft AX', 'JSON/OAuth'] },
+  { group: 'Integration', items: ['REST API', 'Middleware development', 'Microsoft AX', 'JSON/OAuth', 'WhatsApp Business API (Bird/Meta)', 'Webhooks'] },
   { group: 'Infrastructure & DevOps', items: ['Linux Server (Ubuntu/Debian)', 'Docker', 'Git/GitHub', 'CI/CD', 'On-premise & cloud (AWS, GCP)'] },
   { group: 'Practices', items: ['Agile & Scrum', 'Business analysis', 'UAT', 'Project management', 'Team leadership'] },
 ];
@@ -74,6 +74,7 @@ export const skills = [
   { name: 'Cloud (AWS & GCP)', desc: 'Web service hosting, scalable cloud deployment', icon: 'googlecloud', color: '4285F4' },
   { name: 'Docker & Git', desc: 'Containerization, version control, CI/CD workflows', icon: 'docker', color: '2496ED' },
   { name: 'JavaScript', desc: 'Odoo OWL/POS frontend, KDS dashboards, WebSocket realtime UI', icon: 'javascript', color: 'E6B800' },
+  { name: 'WhatsApp Business API', desc: 'Conversational chatbot via Bird (Meta BSP) — flows, templates, webhooks', icon: 'whatsapp', color: '25D366' },
 ];
 
 export const experience = [
@@ -88,7 +89,7 @@ export const experience = [
       'Internal Android app integration & REST API development for fieldforce',
       'Full migration: Odoo v11 → v14 → v16',
       'REST API integration for Sampoerna (Mitra AYO SRC)',
-      "Olie's Restaurant — greenfield POS & ERP rollout via ESB: central kitchen production, multi-warehouse delivery, KDS-integrated outlet POS, full financial reconciliation",
+      "OMNIX — IT team leader for the Olie's Restaurant POS & ERP platform: HQ-centric multi-outlet architecture, central kitchen manufacturing, kiosk & KDS, 3 outlets live on Odoo 18",
     ],
     impact: [
       '500+ fieldforce users on platform',
@@ -97,6 +98,7 @@ export const experience = [
       'Order processing time ↓ from ~4 hrs to <30 min',
       'Stockout incidents ↓ ~40% via automated reorder alerts',
       '3 system integrations: MS AX · Android SFA · ETL DWH',
+      'OMNIX: 3 outlets live, 24,000+ POS orders per 14 days',
     ],
   },
   {
@@ -126,20 +128,62 @@ export const experience = [
   },
 ];
 
-export const projects = [
+// Optional fields: `role` / `period` add a byline under the title,
+// `featured` highlights the card as flagship work.
+export type Project = {
+  tag: string;
+  title: string;
+  role?: string;
+  period?: string;
+  featured?: boolean;
+  desc: string;
+  meta: string[];
+  stack: string[];
+};
+
+export const projects: Project[] = [
+  {
+    tag: 'Flagship · F&B · POS & ERP',
+    title: "OMNIX — Olie's Restaurant POS & ERP",
+    role: 'IT Team Leader & Lead Developer',
+    period: '2025 – Present · full project ownership',
+    featured: true,
+    desc: "OMNIX is the POS and ERP platform running the Olie's fastfood chain end-to-end, and the project I have led for the past year — owning architecture, development, infrastructure, go-live, and the IT team behind it. We replaced a paid third-party ESB with a fully custom Odoo 18 Community stack: an HQ-centric design where headquarters is the single source of truth for stock and each outlet is a warehouse fed through inter-warehouse transit, while outlet nodes run POS only and are pulled by HQ over a tunnel. On top of that sit self-order kiosks, kitchen display and monitoring screens, customer queue displays, multi-printer receipt routing, a full central-kitchen manufacturing chain (raw material → trimming → marination → breading → finished goods), GrabFood order ingestion, Xendit and BRI EDC payments, and automated daily reconciliation with alerting.",
+    meta: [
+      '3 outlets live — Semanggi, Alam Sutera, Margonda',
+      '24,000+ POS orders processed per 14 days',
+      '65 custom modules at HQ · 57 on outlet nodes',
+      'Saved 100s juta IDR/year in ESB subscription fees',
+      'New outlet onboarded with zero code change — data only',
+      'SLA < 5 min per order · 57 uptime monitors with alerting',
+    ],
+    stack: ['Odoo 18 Community', 'Python', 'JavaScript / OWL', 'PostgreSQL', 'XML-RPC', 'Kiosk POS', 'KDS', 'Manufacturing', 'GrabFood API', 'Xendit · BRI EDC', 'Docker', 'Nginx / SSL'],
+  },
+  {
+    tag: 'Personal Project · WhatsApp API',
+    title: 'Tanya HKI — WhatsApp Vendor Chatbot',
+    role: 'Solo Developer — blueprint to production',
+    period: 'Go-Live 29 Jul 2026 · PT Hutama Karya Infrastruktur',
+    featured: true,
+    desc: "A self-service WhatsApp chatbot that lets vendors of PT Hutama Karya Infrastruktur track where their invoice sits in the approval flow — no phone calls, no emails, no waiting for office hours. Built as a custom Odoo module wired to the WhatsApp Business API through Bird, Meta's official solution provider, reading production invoice data live from Odoo HKI. Every request passes an NPWP identity check that opens a 24-hour session bound to a single WhatsApp number, so a vendor can only ever see their own invoices. Invoice amounts are masked to the first two digits to stay private on a visible screen, failed lookups always fall back to a call-center escalation path, and a built-in dashboard gives the HKI team daily visibility on message volume, success rate, and delivery status.",
+    meta: [
+      'Live since 29 Jul 2026 for vendor self-service',
+      'Delivered in 15 weeks — blueprint → UAT → pilot → go-live',
+      'NPWP verification with 24-hour scoped session',
+      '6-stage project & 5-stage central billing tracking',
+      'Amount masking + strict vendor-scoped data access',
+      'Monitoring dashboard, delivery webhooks & auto-purged logs',
+    ],
+    stack: ['Odoo 15', 'Python', 'WhatsApp Business API', 'Bird (Meta BSP)', 'REST API', 'Webhooks', 'PostgreSQL', 'OWL Dashboard', 'Docker', 'Nginx'],
+  },
   {
     tag: 'FMCG · Distributor',
     title: 'Distributor Management System — ARO',
+    role: 'Technical & Functional Lead',
+    period: 'PT Akasha Wira International, Tbk.',
     desc: 'End-to-end DMS for fieldforce operations at PT Akasha Wira International Tbk. Covers route planning, beat scheduling, SFA mobile reporting, CRM, inventory visibility, and bidirectional middleware integration with Microsoft AX ERP and ETL Data Warehouse. Includes an Automatic Replenishment Order engine that computes optimal purchase quantities from P13W rolling sales, stock buffer targets, and safety-stock rules — eliminating manual calculation by sales ops.',
     meta: ['500+ users', '200+ distributor routes', 'Manual reporting ↓ 70%', 'Order cycle ↓ 4 hrs → 30 min', 'Stockout ↓ ~40%'],
     stack: ['Odoo v11/v14/v16', 'Python', 'REST API', 'Microsoft AX', 'ETL / DWH', 'Android SFA'],
-  },
-  {
-    tag: 'Retail · Restaurant · POS · ERP',
-    title: "Olie's Restaurant — Full POS & ERP Implementation",
-    desc: 'Greenfield rollout of a fully integrated POS & ERP for a multi-outlet restaurant group — replacing all manual paper-based operations. Covered central kitchen production (BoM & manufacturing orders), multi-warehouse delivery to outlets, and restaurant POS with real-time KDS routing per station. ESB middleware connected POS ↔ Inventory ↔ Manufacturing ↔ Accounting plus hardware, enabling event-driven stock deduction and kitchen ticketing on every confirmed sale.',
-    meta: ['Multi-outlet coverage', 'Central kitchen automated', 'Warehouse-to-outlet tracked', 'Real-time KDS routing', 'Daily POS auto-sync to accounting'],
-    stack: ['Odoo POS', 'Manufacturing', 'Inventory', 'Accounting', 'ESB Middleware', 'KDS', 'Python', 'XML/QWeb', 'REST API'],
   },
   {
     tag: 'API Integration · FMCG',
@@ -154,13 +198,6 @@ export const projects = [
     desc: 'Full multi-phase migration of 20+ custom modules across three major Odoo versions. Covered data migration, ORM refactoring, view/report updates, regression testing, and zero-downtime cutover using blue-green deployment on Linux servers.',
     meta: ['20+ custom modules migrated', 'Zero data loss', 'Downtime < 4 hrs per cutover', 'UAT coverage 100%', 'Dockerized staging'],
     stack: ['Odoo v11/v14/v16', 'PostgreSQL', 'Docker', 'Linux Ubuntu', 'Git'],
-  },
-  {
-    tag: 'Fastfood · POS · Custom Kiosk',
-    title: 'ESB → Full Odoo POS Migration (Fastfood)',
-    desc: 'Migrated an existing ESB-based POS & ERP to a fully custom Odoo solution tailored for a fastfood flow. Built from scratch: self-order KIOSK POS, Kitchen Display System (KDS), Kitchen Monitoring dashboard, and Customer Queue Display — all in one Odoo ecosystem. SLA target: service time <5 minutes per order. Eliminated third-party ESB subscription costs worth hundreds of millions of IDR per year.',
-    meta: ['Saved 100s juta IDR/year', 'SLA < 5 min/order', 'Custom KIOSK self-order POS', 'KDS + Kitchen Monitoring', 'Customer Queue Display'],
-    stack: ['Odoo POS (Custom)', 'Python', 'JavaScript', 'KDS', 'WebSocket', 'Linux Server', 'QWeb'],
   },
   {
     tag: 'Government · ERP · Infrastructure',
@@ -180,10 +217,11 @@ export const projects = [
 
 // Real organizations worked with / for. Rendered as a clean logo-style wall.
 export const clients = [
-  { name: 'Akasha Wira Int’l', sector: 'FMCG · Beverages' },
+  { name: 'Akasha Wira International', sector: 'FMCG · Beverages' },
+  { name: 'Hutama Karya Infrastruktur', sector: 'Infrastructure · BUMN' },
+  { name: "Olie's Restaurant", sector: 'F&B · 3 outlets live' },
   { name: 'Sampoerna', sector: 'Mitra AYO SRC' },
   { name: 'Kementerian PUPR', sector: 'Government · SPAM' },
-  { name: "Olie's Restaurant", sector: 'F&B · Multi-outlet' },
   { name: 'Fujicon Priangan', sector: 'ERP Consulting' },
   { name: 'Telkom University', sector: 'Education' },
 ];

@@ -10,9 +10,16 @@ import { projects } from '../data/site';
 
     <div class="grid">
       {projects.map((p) => (
-        <article class="card project reveal">
+        <article class:list={['card', 'project', 'reveal', { featured: p.featured }]}>
           <span class="tag">{p.tag}</span>
           <h3>{p.title}</h3>
+          {(p.role || p.period) && (
+            <p class="byline">
+              {p.role && <span class="role">{p.role}</span>}
+              {p.role && p.period && <span class="sep">·</span>}
+              {p.period && <span class="period">{p.period}</span>}
+            </p>
+          )}
           <p class="desc">{p.desc}</p>
           {p.meta.length > 0 && (
             <ul class="meta">
@@ -49,7 +56,24 @@ import { projects } from '../data/site';
     border-radius: 999px;
     margin-bottom: 0.9rem;
   }
-  .project h3 { font-size: 1.12rem; font-weight: 600; line-height: 1.3; margin-bottom: 0.6rem; }
+  .project h3 { font-size: 1.12rem; font-weight: 600; line-height: 1.3; margin-bottom: 0.35rem; }
+  .byline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    margin-bottom: 0.7rem;
+  }
+  .byline .role { color: var(--accent); font-weight: 600; }
+  .byline .sep { color: var(--muted); opacity: 0.6; }
+  .byline .period { color: var(--muted); }
+  .project.featured {
+    border-color: color-mix(in srgb, var(--accent) 38%, transparent);
+    background:
+      linear-gradient(180deg, var(--accent-tint), transparent 42%),
+      var(--surface);
+  }
   .desc { color: var(--muted); font-size: 0.9rem; line-height: 1.65; }
   .meta {
     list-style: none;
